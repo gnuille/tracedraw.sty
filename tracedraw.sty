@@ -1,0 +1,97 @@
+%------------------------------
+%
+%   FILE: tracedraw.sty
+%   Author: Guillem Ramírez
+%   Imoprtant: LaTeX Package to draw timelines
+%
+%-----------------------------
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{tracedraw}[2020/01/13 Trace Timeline draw Package]
+
+\RequirePackage{fp}
+
+%Synopsis
+% \tracedrawMaxX
+% Fp var that holds the max length X
+\FPset\tracedrawMaxX{10}
+
+% Synopsis
+% \tracedrawCurrentPositionX 
+% Fp var that holds the X position on the timeline
+\FPset\tracedrawCurrentPositionX{0}
+
+% Synopsis
+% \tracedrawCurrentPositionY 
+% Fp var that holds the Y position on the timeline
+\FPset\tracedrawCurrentPositionY{0}
+
+% Synopsis
+% \tracedrawChunkHeight
+% Fp var that holds the Chunk height
+\FPset\tracedrawChunkHeight{1}
+
+% Synopsis
+% \tracedrawSpacingHeight
+% Fp var that holds the Spacing between lines height
+\FPset\tracedrawSpacingHeight{0.2}
+
+
+% Synopsis
+% \tracedrawMaxPercentatge
+% Fp var that holds the max percentage
+\FPset\tracedrawMaxPercentatge{100}
+
+% Synopsis
+% \tracedrawNewTimeline
+% Resets all the current timeline variables
+\newcommand\tracedrawNewTimeline{}
+\def\tracedrawNewTimeline{%
+  \FPset\tracedrawCurrentPositionX{0}
+  \FPset\tracedrawCurrentPositionY{0}
+}
+
+% Synopsis
+% \tracedrawAddChunk[draw_options](percentage)
+% Adds a chunk to the current process
+\newcommand\tracedrawAddChunk{}
+\def\tracedrawAddChunk[#1](#2){%
+
+  %def input
+  \FPset\currentPercentatge{#2}
+
+  %calc next x
+  \FPdiv\tracedrawNextPositionX\currentPercentatge\tracedrawMaxPercentatge
+  \FPmul\tracedrawNextPositionX\tracedrawNextPositionX\tracedrawMaxX
+  \FPadd\tracedrawNextPositionX\tracedrawNextPositionX\tracedrawCurrentPositionX
+
+  %calc next y
+  \FPadd\tracedrawNextPositionY\tracedrawCurrentPositionY\tracedrawChunkHeight
+
+  %draw the rect
+  \filldraw[#1] (\tracedrawCurrentPositionX,\tracedrawCurrentPositionY) rectangle (\tracedrawNextPositionX,\tracedrawNextPositionY);
+  
+  %update vars
+  \FPset\tracedrawCurrentPositionX{\tracedrawNextPositionX}
+
+}
+
+% Synopsis
+% \tracedrawNewLine
+% Begins to draw a new line
+\newcommand\tracedrawNewLine{}
+\def\tracedrawNewLine{%
+
+  %calc vars for spacing
+  \FPadd\tracedrawCurrentPositionY\tracedrawCurrentPositionY\tracedrawChunkHeight
+  \FPadd\tracedrawNextPositionY\tracedrawCurrentPositionY\tracedrawSpacingHeight
+
+  %draw spacing
+  \filldraw[color=white, fill=white] (0,\tracedrawCurrentPositionY) rectangle (\tracedrawMaxX,\tracedrawNextPositionY);
+
+  %update vars for next line
+  \FPset\tracedrawCurrentPositionX{0}
+  \FPset\tracedrawCurrentPositionY{\tracedrawNextPositionY}
+}
+
+\endinput
