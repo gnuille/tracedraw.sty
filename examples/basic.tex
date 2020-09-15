@@ -1,0 +1,27 @@
+%------------------------------------
+%
+%   FILE: Sample timeline
+%   Author: Guillem Ramírez
+%   Compile: latexmk -pdf basic.tex
+%
+%------------------------------------
+\documentclass[crop,tikz]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tracedraw}
+
+\begin{document}
+\begin{tikzpicture}
+
+  \tracedrawNewTimeline
+
+  \tracedrawAddChunk[color=gray, fill=blue](66.6)
+  \tracedrawAddChunk[color=gray, fill=red](33.4)
+
+  \tracedrawNewLine
+
+  \tracedrawAddChunk[color=gray, fill=blue](46)
+  \tracedrawAddChunk[color=gray, fill=red](54)
+
+\end{tikzpicture}
+\end{document}
