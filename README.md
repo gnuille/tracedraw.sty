@@ -10,3 +10,6 @@ Checkout [description](doc/description.md) for a detailed description of all the
 
 ## Instalation
 TODO
+
+## License
+This project is licensed under GPL3. See LICENSE file for more details.
