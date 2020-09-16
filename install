@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+if ! command -v kpsewhich &> /dev/null
+then
+
+  echo "Sorry, LaTeX distribution not supported :("
+  echo "Check for documentation on your LaTeX distribution on how to install sty files."
+  exit
+
+fi
+
+_TEXMFHOME=$(kpsewhich -var-value=TEXMFHOME)
+
+echo "DETECTED HOME=${_TEXMFHOME}"
+mkdir -p "${_TEXMFHOME}/tex/latex/commonstuff"
+
+echo "Installing at ${_TEXMFHOME}/tex/latex/commonstuff"
+cp src/tracedraw.sty "${_TEXMFHOME}/tex/latex/commonstuff"
+
+echo "Installed at $(kpsewhich tracedraw.sty)"
+
+echo "You can now use the package with \\usepackage{tracedraw} directives from everywhere."

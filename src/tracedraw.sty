@@ -43,6 +43,22 @@
 \FPset\tracedrawMaxPercentatge{100}
 
 % Synopsis
+% \tracedrawSetLineHeight{height}
+% Set the line height to value, default: 1
+\newcommand\tracedrawSetLineHeight{}
+\def\tracedrawSetLineHeight(#1){%
+  \FPset\tracedrawChunkHeight{#1}
+}
+
+% Synopsis
+% \tracedrawSetSpacingHeight{height}
+% Set the spacing height to value, default: 0.2
+\newcommand\tracedrawSetSpacingHeight{}
+\def\tracedrawSetSpacingHeight(#1){%
+  \FPset\tracedrawSpacingHeight{#1}
+}
+
+% Synopsis
 % \tracedrawNewTimeline
 % Resets all the current timeline variables
 \newcommand\tracedrawNewTimeline{}
