@@ -21,3 +21,9 @@ Allows to adjust the line height, the default is 1.
 
 - **tracedrawSetSpacingHeight**(height):
 Allows to adjust the height of the spacing between lines. The default is 0.2
+
+- **tracedrawAddToLegend**(name,color):
+Adds an entry to the legend with name *name* and color *color*.
+
+- **tracedrawSetMaxX**(length):
+Specify the length of the drawing, useful to elongate it. Default value is 10.

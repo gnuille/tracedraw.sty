@@ -30,12 +30,11 @@
 % BS
 \FPset\tracedrawPointFive{0.2}
 
-
-
 % Synopsis
 % \tracedrawMaxX
 % Fp var that holds the max length X
 \FPset\tracedrawMaxX{10}
+
 
 % Synopsis
 % \tracedrawCurrentPositionX 
@@ -130,6 +129,14 @@
 \newcommand\tracedrawSetSpacingHeight{}
 \def\tracedrawSetSpacingHeight(#1){%
   \FPset\tracedrawSpacingHeight{#1}
+}
+
+% Synopsis
+% \tracedrawSetMaxX(length)
+% Set the maximum X, usefull to elongate de drawing. Default: 10
+\newcommand\tracedrawSetMaxX{}
+\def\tracedrawSetMaxX(#1){%
+  \FPset\tracedrawMaxX{#1}
 }
 
 % Synopsis
