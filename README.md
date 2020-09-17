@@ -1,7 +1,7 @@
 # tracedraw.sty
 LaTeX package for drawing timelines oriented to represent parallel programs executions.
 
-![](doc/img/example.png)
+![](doc/img/adv_example.png)
 
 ## Usage
 Checkout [tutorial](doc/tutorial.md) for a tutorial on usage.
