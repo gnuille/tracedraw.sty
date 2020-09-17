@@ -11,12 +11,13 @@
 \usepackage{tracedraw}
 
 \begin{document}
-\begin{tikzpicture}
+\begin{tracedraw}
 
-  \tracedrawNewTimeline
+  \tracedrawAddToLegend(Useful,blue)
+  \tracedrawAddToLegend(Not-useful,red)
 
 %  Try to add labels before each line
-%  \tracedrawEnableLineName(\LARGE{Process})
+  \tracedrawEnableLineName(\LARGE{Process})
   
 %  Try to adjust height of lines and spacing to have a different look!
 %  \tracedrawSetLineHeight(0.2)
@@ -30,6 +31,15 @@
   \tracedrawAddChunk[color=gray, fill=blue](46)
   \tracedrawAddChunk[color=gray, fill=red](54)
 
+  \tracedrawNewLine
 
-\end{tikzpicture}
+  \tracedrawAddChunk[color=gray, fill=blue](36)
+  \tracedrawAddChunk[color=gray, fill=red](64)
+
+  \tracedrawNewLine
+
+  \tracedrawAddChunk[color=gray, fill=blue](26)
+  \tracedrawAddChunk[color=gray, fill=red](74)
+
+\end{tracedraw}
 \end{document}

@@ -12,12 +12,27 @@
 % For calculations on positioning
 \RequirePackage{fp}
 
-%Synopsis
+% For storing legends
+\RequirePackage{etoolbox}
+
+% Synopsis
 % \tracedrawHalf
 % BS
 \FPset\tracedrawHalf{2}
 
-%Synopsis
+% Synopsis
+% \tracedrawOne
+% BS
+\FPset\tracedrawOne{1}
+
+% Synopsis
+% \tracedrawPointFive
+% BS
+\FPset\tracedrawPointFive{0.2}
+
+
+
+% Synopsis
 % \tracedrawMaxX
 % Fp var that holds the max length X
 \FPset\tracedrawMaxX{10}
@@ -43,9 +58,19 @@
 \FPset\tracedrawSpacingHeight{0.2}
 
 % Synopsis
+% \tracedrawLegendcolorScale
+% Fp var that means how much space of the left for the legend ocupies the color.
+\FPset\tracedrawLegendColorScale{0.5}
+
+% Synopsis
 % \tracedrawLineCounter
 % Counter that holds the number of lines
 \newcounter{tracedrawLineCounter}
+
+% Synopsis
+% \tracedrwaLegendCounter
+% Counter that holds the number of legend entries
+\FPset\tracedrawLegendCounter{0}
 
 % Synopsis
 % \tracedrawLineNameEnabled
@@ -61,6 +86,30 @@
   \tracedrawLineNameEnabledtrue
   \def\tracedrawLineName{#1}
 }
+
+% Synopsis
+% \legendname
+% List that holds legend names
+\newcommand*{\legendname}{}
+% Synopsis
+
+% Synopsis
+% \legendcolor
+% List that holds legend colors
+\newcommand*{\legendcolor}{}
+
+
+% Synopsis
+% \tracedrawAddToLegend(name,color)
+% Adds to the legend the entry with name "name" and color "color". Color must be a valid color.
+\newcommand\tracedrawAddToLegend{}
+\def\tracedrawAddToLegend(#1,#2){%
+  \listgadd{\legendname}{#1}
+  \listgadd{\legendcolor}{#2}
+  \FPadd\tracedrawLegendCounter\tracedrawOne\tracedrawLegendCounter
+}
+
+
 
 % Synopsis
 % \tracedrawMaxPercentatge
@@ -84,13 +133,59 @@
 }
 
 % Synopsis
-% \tracedrawNewTimeline
-% Resets all the current timeline variables
-\newcommand\tracedrawNewTimeline{}
-\def\tracedrawNewTimeline{%
+% \tracedrawForNameHandler#1
+% Handler in charge of drawing the names of the legend
+\newcommand*{\tracedrawForNameHandler}[1]{%
+  \FPadd\tracedrawCurrentPositionY\tracedrawHalfSpacePerLegend\tracedrawCurrentPositionY
+  \FPadd\tracedrawLegendX\tracedrawNextLegendX\tracedrawPointFive
+  \node[anchor=west] at (\tracedrawLegendX,\tracedrawCurrentPositionY){\LARGE{#1}};%
+  \FPadd\tracedrawCurrentPositionY\tracedrawHalfSpacePerLegend\tracedrawCurrentPositionY
+}
+
+% Synopsis
+% \tracedrawForcolorHandler#1
+% Handler in charge of drawing the colors of the legend
+\newcommand*{\tracedrawForColorHandler}[1]{%
+  \FPadd\tracedrawCurrentPositionY\tracedrawColorLegendFirstJump\tracedrawCurrentPositionY
+  \FPadd\tracedrawNextPositionY\tracedrawCurrentPositionY\tracedrawLegendColorLength
+
+  
+  \filldraw[color=gray, fill=#1] (\tracedrawLegendX,\tracedrawCurrentPositionY) rectangle (\tracedrawNextLegendX,\tracedrawNextPositionY);
+
+  \FPadd\tracedrawCurrentPositionY\tracedrawNextPositionY\tracedrawColorLegendFirstJump
+
+}
+
+% Synopsis
+% \begin{tracedraw} .. \end{tracedraw}
+% Tracedraw environment
+\newenvironment{tracedraw}
+{%
+  \begin{tikzpicture}
   \FPset\tracedrawCurrentPositionX{0}
   \FPset\tracedrawCurrentPositionY{0}
-}
+  \FPset\tracedrawLegendCounter{0}
+}%
+{%
+  %begin draw legend
+  \FPset\tracedrawCurrentPositionX{0}
+  \FPset\tracedrawCurrentPositionY{0}
+
+  \FPdiv\tracedrawSpacePerLegend\tracedrawNextPositionY\tracedrawLegendCounter
+  \FPdiv\tracedrawHalfSpacePerLegend\tracedrawSpacePerLegend\tracedrawHalf
+  \FPmul\tracedrawLegendColorLength\tracedrawSpacePerLegend\tracedrawLegendColorScale
+  \FPsub\tracedrawColorLegendFirstJump\tracedrawSpacePerLegend\tracedrawLegendColorLength
+  \FPdiv\tracedrawColorLegendFirstJump\tracedrawColorLegendFirstJump\tracedrawHalf
+
+  \FPadd\tracedrawLegendX\tracedrawMaxX\tracedrawPointFive
+  \FPadd\tracedrawNextLegendX\tracedrawLegendX\tracedrawLegendColorLength
+
+  \forlistloop{\tracedrawForColorHandler}{\legendcolor}
+
+  \FPset\tracedrawCurrentPositionY{0}
+  \forlistloop{\tracedrawForNameHandler}{\legendname}
+  \end{tikzpicture}
+}%
 
 % Synopsis
 % \tracedrawAddChunk[draw_options](percentage)
@@ -128,7 +223,9 @@
   
   %update vars
   \FPset\tracedrawCurrentPositionX{\tracedrawNextPositionX}
+
 }
+
 
 % Synopsis
 % \tracedrawNewLine
@@ -147,6 +244,7 @@
   \FPset\tracedrawCurrentPositionX{0}
   \FPset\tracedrawCurrentPositionY{\tracedrawNextPositionY}
   \stepcounter{tracedrawLineCounter}
+
 }
 
 \endinput
