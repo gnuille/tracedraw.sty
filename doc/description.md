@@ -13,3 +13,11 @@ Adds a chunk to the current process line that will have width *percentage* of th
 - **tracedrawNewLine**:
 Ends the current process line and begins to draw another.
 
+- **tracedrawEnableLineName**(name):
+Enables label of each line printing "name NUMBER-OF-LINE" before each process line.
+
+- **tracedrawSetLineHeight**(height):
+Allows to adjust the line height, the default is 1.
+
+- **tracedrawSetSpacingHeight**(height):
+Allows to adjust the height of the spacing between lines. The default is 0.2
