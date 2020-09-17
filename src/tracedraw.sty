@@ -9,7 +9,13 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{tracedraw}[2020/01/13 Trace Timeline draw Package]
 
+% For calculations on positioning
 \RequirePackage{fp}
+
+%Synopsis
+% \tracedrawHalf
+% BS
+\FPset\tracedrawHalf{2}
 
 %Synopsis
 % \tracedrawMaxX
@@ -36,6 +42,25 @@
 % Fp var that holds the Spacing between lines height
 \FPset\tracedrawSpacingHeight{0.2}
 
+% Synopsis
+% \tracedrawLineCounter
+% Counter that holds the number of lines
+\newcounter{tracedrawLineCounter}
+
+% Synopsis
+% \tracedrawLineNameEnabled
+% Bool representing if line naming is enabled
+\newif\iftracedrawLineNameEnabled
+\tracedrawLineNameEnabledfalse
+
+% Synopsis
+% \tracedrawEnableLineName(Name)
+% Will add before each line a the name + number of line and resets the counter to 0
+\newcommand\tracedrawEnableLineName{}
+\def\tracedrawEnableLineName(#1){%
+  \tracedrawLineNameEnabledtrue
+  \def\tracedrawLineName{#1}
+}
 
 % Synopsis
 % \tracedrawMaxPercentatge
@@ -65,6 +90,7 @@
 \def\tracedrawNewTimeline{%
   \FPset\tracedrawCurrentPositionX{0}
   \FPset\tracedrawCurrentPositionY{0}
+  \FPset\tracedrawLineCounter{0}
 }
 
 % Synopsis
@@ -73,6 +99,20 @@
 \newcommand\tracedrawAddChunk{}
 \def\tracedrawAddChunk[#1](#2){%
 
+  %check if first line
+  \FPifzero\tracedrawCurrentPositionX
+    %check if line name enabled
+    \iftracedrawLineNameEnabled
+
+      %calc position
+      \FPdiv\tracedrawHalfChunkHeight\tracedrawChunkHeight\tracedrawHalf
+      \FPadd\tracedrawLabelHeight\tracedrawHalfChunkHeight\tracedrawCurrentPositionY 
+      %draw the name
+      \node[anchor=east] at (-0.1,\tracedrawLabelHeight) {\tracedrawLineName\ \arabic{tracedrawLineCounter}};
+
+    \fi
+  \fi
+    
   %def input
   \FPset\currentPercentatge{#2}
 
@@ -89,7 +129,7 @@
   
   %update vars
   \FPset\tracedrawCurrentPositionX{\tracedrawNextPositionX}
-
+  \stepcounter{tracedrawLineCounter}
 }
 
 % Synopsis
