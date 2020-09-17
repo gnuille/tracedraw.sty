@@ -12,6 +12,8 @@ Checkout [description](doc/description.md) for a detailed description of all the
 
 ### Using TEXMF
 
+Use the install script or manually:
+
 First, check if your LaTeX installation uses TEXMF.
 
 ```bash
