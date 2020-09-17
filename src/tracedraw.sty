@@ -90,7 +90,6 @@
 \def\tracedrawNewTimeline{%
   \FPset\tracedrawCurrentPositionX{0}
   \FPset\tracedrawCurrentPositionY{0}
-  \FPset\tracedrawLineCounter{0}
 }
 
 % Synopsis
@@ -129,7 +128,6 @@
   
   %update vars
   \FPset\tracedrawCurrentPositionX{\tracedrawNextPositionX}
-  \stepcounter{tracedrawLineCounter}
 }
 
 % Synopsis
@@ -148,6 +146,7 @@
   %update vars for next line
   \FPset\tracedrawCurrentPositionX{0}
   \FPset\tracedrawCurrentPositionY{\tracedrawNextPositionY}
+  \stepcounter{tracedrawLineCounter}
 }
 
 \endinput
