@@ -1,11 +1,12 @@
 #!/bin/sh
 
-if ! command -v kpsewhich &> /dev/null
-then
+COMMAND="$(which kpsewhich)"
+
+if [ ! -f "${COMMAND}" ]; then
 
   echo "Sorry, LaTeX distribution not supported :("
   echo "Check for documentation on your LaTeX distribution on how to install sty files."
-  exit
+  exit 255
 
 fi
 
