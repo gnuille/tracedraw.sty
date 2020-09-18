@@ -78,6 +78,12 @@
 \tracedrawLineNameEnabledfalse
 
 % Synopsis
+% \tracedrawLegendEnabled
+% Bool representing if legend is enabled
+\newif\iftracedrawLegendEnabled
+\tracedrawLegendEnabledfalse
+
+% Synopsis
 % \tracedrawEnableLineName(Name)
 % Will add before each line a the name + number of line and resets the counter to 0
 \newcommand\tracedrawEnableLineName{}
@@ -103,6 +109,7 @@
 % Adds to the legend the entry with name "name" and color "color". Color must be a valid color.
 \newcommand\tracedrawAddToLegend{}
 \def\tracedrawAddToLegend(#1,#2){%
+  \tracedrawLegendEnabledtrue
   \listgadd{\legendname}{#1}
   \listgadd{\legendcolor}{#2}
   \FPadd\tracedrawLegendCounter\tracedrawOne\tracedrawLegendCounter
@@ -133,10 +140,19 @@
 
 % Synopsis
 % \tracedrawSetMaxX(length)
-% Set the maximum X, usefull to elongate de drawing. Default: 10
+% Set the maximum X, usefull to elongate de drawing, default: 10
 \newcommand\tracedrawSetMaxX{}
 \def\tracedrawSetMaxX(#1){%
   \FPset\tracedrawMaxX{#1}
+}
+
+
+% Synopsis
+% \tracedrawSetLegendColorScale(scale)
+% Set the scale of the color in the legend, default: 0.5
+\newcommand\tracedrawSetLegendColorScale{}
+\def\tracedrawSetLegendColorScale(#1){%
+  \FPset\tracedrawLegendColorScale{#1}
 }
 
 % Synopsis
@@ -175,22 +191,24 @@
 }%
 {%
   %begin draw legend
-  \FPset\tracedrawCurrentPositionX{0}
-  \FPset\tracedrawCurrentPositionY{0}
+  \iftracedrawLegendEnabled
+    \FPset\tracedrawCurrentPositionX{0}
+    \FPset\tracedrawCurrentPositionY{0}
 
-  \FPdiv\tracedrawSpacePerLegend\tracedrawNextPositionY\tracedrawLegendCounter
-  \FPdiv\tracedrawHalfSpacePerLegend\tracedrawSpacePerLegend\tracedrawHalf
-  \FPmul\tracedrawLegendColorLength\tracedrawSpacePerLegend\tracedrawLegendColorScale
-  \FPsub\tracedrawColorLegendFirstJump\tracedrawSpacePerLegend\tracedrawLegendColorLength
-  \FPdiv\tracedrawColorLegendFirstJump\tracedrawColorLegendFirstJump\tracedrawHalf
+    \FPdiv\tracedrawSpacePerLegend\tracedrawNextPositionY\tracedrawLegendCounter
+    \FPdiv\tracedrawHalfSpacePerLegend\tracedrawSpacePerLegend\tracedrawHalf
+    \FPmul\tracedrawLegendColorLength\tracedrawSpacePerLegend\tracedrawLegendColorScale
+    \FPsub\tracedrawColorLegendFirstJump\tracedrawSpacePerLegend\tracedrawLegendColorLength
+    \FPdiv\tracedrawColorLegendFirstJump\tracedrawColorLegendFirstJump\tracedrawHalf
 
-  \FPadd\tracedrawLegendX\tracedrawMaxX\tracedrawPointFive
-  \FPadd\tracedrawNextLegendX\tracedrawLegendX\tracedrawLegendColorLength
+    \FPadd\tracedrawLegendX\tracedrawMaxX\tracedrawPointFive
+    \FPadd\tracedrawNextLegendX\tracedrawLegendX\tracedrawLegendColorLength
 
-  \forlistloop{\tracedrawForColorHandler}{\legendcolor}
+    \forlistloop{\tracedrawForColorHandler}{\legendcolor}
 
-  \FPset\tracedrawCurrentPositionY{0}
-  \forlistloop{\tracedrawForNameHandler}{\legendname}
+    \FPset\tracedrawCurrentPositionY{0}
+    \forlistloop{\tracedrawForNameHandler}{\legendname}
+  \fi
   \end{tikzpicture}
 }%
 

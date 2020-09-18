@@ -2,21 +2,15 @@
 
 Import the required packages.
 ```latex
-\usepackage{tikz}
 \usepackage{tracedraw}
 
 ```
 
-For drawing a trace we need a tikz environment.
+For drawing a trace we need a tracedraw environment.
 ```latex
-\begin{tikzpicture}
+\begin{tracedraw}
   ...
-\end{tikzpicture}
-```
-
-Inside the tikz environment, we need the NewTimeline command for initialization.
-```latex
-    \tracedrawNewTimeline
+\end{tracedraw}
 ```
 
 Then we can use the AddChunk command for describing the process bursts. Color is the border and fill is fill of the rect. The number is the percentatge of the timeline we want the chunk to represent. Take in mind the whole line must sum up 100!
@@ -40,9 +34,7 @@ The minimal working example looks like this:
 
 
 \begin{document}
-\begin{tikzpicture}
-
-  \tracedrawNewTimeline
+\begin{tracedraw}
 
   \tracedrawAddChunk[color=gray, fill=blue](66.6)
   \tracedrawAddChunk[color=gray, fill=red](33.4)
@@ -52,9 +44,10 @@ The minimal working example looks like this:
   \tracedrawAddChunk[color=gray, fill=blue](46)
   \tracedrawAddChunk[color=gray, fill=red](54)
 
-\end{tikzpicture}
+\end{tracedraw}
 \end{document}
 ```
+There are plenty of options! In the examples folder you have this example and an advanced one which adds a legend and line labels.
 
 ## Result
 

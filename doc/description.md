@@ -2,6 +2,11 @@
 
 You will find bellow a description of all the commands and variables the package provides.
 
+## Environments
+
+- **tracedraw**:
+Environment to draw a timeline, initializes and ends the drawing automatically.
+
 ## Commands
 
 - **tracedrawNewTimeline**:
@@ -27,3 +32,6 @@ Adds an entry to the legend with name *name* and color *color*.
 
 - **tracedrawSetMaxX**(length):
 Specify the length of the drawing, useful to elongate it. Default value is 10.
+
+- **tracedrawSetLegendColorScale**(scale):
+Scales the color of the legend. Default value is 0.5.

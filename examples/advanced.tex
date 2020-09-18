@@ -1,0 +1,47 @@
+%------------------------------------
+%
+%   FILE: Sample timeline
+%   Author: Guillem Ramírez
+%   Compile: latexmk -pdf basic.tex
+%
+%------------------------------------
+\documentclass[crop,tikz]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tracedraw}
+
+\begin{document}
+\begin{tracedraw}
+
+  \tracedrawAddToLegend(Useful,blue)
+  \tracedrawAddToLegend(Not-useful,red)
+
+%  Try to add labels before each line
+  \tracedrawEnableLineName(\LARGE{Process})
+  
+%  Test this adjustments on the timeline!
+%  \tracedrawSetLineHeight(0.2)
+%  \tracedrawSetSpacingHeight(0.05)
+%  \tracedrawSetMaxX(30)
+%  \tracedrawSetLegendColorScale(0.2)
+
+  \tracedrawAddChunk[color=gray, fill=blue](66.6)
+  \tracedrawAddChunk[color=gray, fill=red](33.4)
+
+  \tracedrawNewLine
+
+  \tracedrawAddChunk[color=gray, fill=blue](46)
+  \tracedrawAddChunk[color=gray, fill=red](54)
+
+  \tracedrawNewLine
+
+  \tracedrawAddChunk[color=gray, fill=blue](36)
+  \tracedrawAddChunk[color=gray, fill=red](64)
+
+  \tracedrawNewLine
+
+  \tracedrawAddChunk[color=gray, fill=blue](26)
+  \tracedrawAddChunk[color=gray, fill=red](74)
+
+\end{tracedraw}
+\end{document}
