@@ -6,9 +6,9 @@ Import the required packages.
 
 ```
 
-For drawing a trace we need a tracedraw environment.
+For drawing a trace we need a tracedraw environment. We need to add the paramater that indicates the scale of the drawing. In this case 1.
 ```latex
-\begin{tracedraw}
+\begin{tracedraw}{1}
   ...
 \end{tracedraw}
 ```

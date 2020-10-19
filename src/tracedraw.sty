@@ -15,6 +15,9 @@
 % For storing legends
 \RequirePackage{etoolbox}
 
+% For drawing
+\RequirePackage{tikz}
+
 % Synopsis
 % \tracedrawHalf
 % BS
@@ -161,7 +164,7 @@
 \newcommand*{\tracedrawForNameHandler}[1]{%
   \FPadd\tracedrawCurrentPositionY\tracedrawHalfSpacePerLegend\tracedrawCurrentPositionY
   \FPadd\tracedrawLegendX\tracedrawNextLegendX\tracedrawPointFive
-  \node[anchor=west] at (\tracedrawLegendX,\tracedrawCurrentPositionY){\LARGE{#1}};%
+  \node[anchor=west] at (\tracedrawLegendX,\tracedrawCurrentPositionY){{#1}};%
   \FPadd\tracedrawCurrentPositionY\tracedrawHalfSpacePerLegend\tracedrawCurrentPositionY
 }
 
@@ -182,9 +185,9 @@
 % Synopsis
 % \begin{tracedraw} .. \end{tracedraw}
 % Tracedraw environment
-\newenvironment{tracedraw}
+\newenvironment{tracedraw}[1]
 {%
-  \begin{tikzpicture}
+  \begin{tikzpicture}[scale=#1]
   \FPset\tracedrawCurrentPositionX{0}
   \FPset\tracedrawCurrentPositionY{0}
   \FPset\tracedrawLegendCounter{0}

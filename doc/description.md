@@ -4,8 +4,8 @@ You will find bellow a description of all the commands and variables the package
 
 ## Environments
 
-- **tracedraw**:
-Environment to draw a timeline, initializes and ends the drawing automatically.
+- **tracedraw**{scale}:
+Environment to draw a timeline, initializes and ends the drawing automatically. Scale is a float.
 
 ## Commands
 
