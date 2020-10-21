@@ -254,6 +254,44 @@
 
 }
 
+\newcommand\tracedrawAddNamedChunk[3]{
+  
+  \FPdiv\tracedrawHalfChunkHeight\tracedrawChunkHeight\tracedrawHalf
+  %check if first line
+  \FPifzero\tracedrawCurrentPositionX
+    %check if line name enabled
+    \iftracedrawLineNameEnabled
+      \FPadd\tracedrawLabelHeight\tracedrawHalfChunkHeight\tracedrawCurrentPositionY 
+      %draw the name
+      \node[anchor=east] at (-0.1,\tracedrawLabelHeight) {\tracedrawLineName\ \arabic{tracedrawLineCounter}};
+
+    \fi
+  \fi
+
+  %def input
+  \FPset\currentPercentatge{#2}
+
+  %calc next x
+  \FPdiv\tracedrawNextPositionX\currentPercentatge\tracedrawMaxPercentatge
+  \FPmul\tracedrawNextPositionX\tracedrawNextPositionX\tracedrawMaxX
+  \FPadd\tracedrawNextPositionX\tracedrawNextPositionX\tracedrawCurrentPositionX
+
+  %calc next y
+  \FPadd\tracedrawNextPositionY\tracedrawCurrentPositionY\tracedrawChunkHeight
+
+  %draw the rect
+  \filldraw[#1] (\tracedrawCurrentPositionX,\tracedrawCurrentPositionY) rectangle (\tracedrawNextPositionX,\tracedrawNextPositionY);
+
+  %name y
+  \FPadd\tracedrawNameY\tracedrawCurrentPositionY\tracedrawHalfChunkHeight
+
+  \node[anchor=west] at (\tracedrawCurrentPositionX,\tracedrawNameY) {#3};
+  
+  %update vars
+  \FPset\tracedrawCurrentPositionX{\tracedrawNextPositionX}
+
+}
+
 
 % Synopsis
 % \tracedrawNewLine
