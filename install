@@ -20,4 +20,4 @@ cp src/tracedraw.sty "${_TEXMFHOME}/tex/latex/commonstuff"
 
 echo "Installed at $(kpsewhich tracedraw.sty)"
 
-echo "You can now use the package with \\usepackage{tracedraw} directives from everywhere."
+echo "You can now use the package. Check the documentation or the examples for knowing how."

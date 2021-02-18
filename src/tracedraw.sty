@@ -191,6 +191,9 @@
   \FPset\tracedrawCurrentPositionX{0}
   \FPset\tracedrawCurrentPositionY{0}
   \FPset\tracedrawLegendCounter{0}
+  \setcounter{tracedrawLineCounter}{0}
+  \renewcommand*{\legendname}{}
+  \renewcommand*{\legendcolor}{}
 }%
 {%
   %begin draw legend
@@ -230,7 +233,7 @@
       \FPdiv\tracedrawHalfChunkHeight\tracedrawChunkHeight\tracedrawHalf
       \FPadd\tracedrawLabelHeight\tracedrawHalfChunkHeight\tracedrawCurrentPositionY 
       %draw the name
-      \node[anchor=east] at (-0.1,\tracedrawLabelHeight) {\tracedrawLineName\ \arabic{tracedrawLineCounter}};
+      \node[anchor=east] at (-0.1,\tracedrawLabelHeight) {\normalsize \tracedrawLineName\ \arabic{tracedrawLineCounter}};
 
     \fi
   \fi
