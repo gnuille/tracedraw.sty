@@ -9,6 +9,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{tracedraw}
+\usepackage{xcolor}
 
 \begin{document}
 \begin{tracedraw}{0.8}
@@ -26,7 +27,7 @@
 %  \tracedrawSetLegendColorScale(0.2)
 
 %  Test named chunks :0
-  \tracedrawAddNamedChunk{color=gray, fill=blue}{66.6}{C1}
+	\tracedrawAddNamedChunk{color=gray, fill=blue}{66.6}{{\color{white} C1}}
   \tracedrawAddChunk[color=gray, fill=red](33.4)
 
   \tracedrawNewLine
