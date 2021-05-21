@@ -23,25 +23,25 @@
 %  \tracedrawSetLineHeight(0.2)
 %  \tracedrawSetSpacingHeight(0.05)
 %  \tracedrawSetMaxX(30)
-%  \tracedrawSetLegendColorScale(0.2)
+  \tracedrawSetLegendColorScale(0.4)
 
 %  Test named chunks :0
-  \tracedrawAddNamedChunk{color=gray, fill=blue}{66.6}{C1}
+  \tracedrawAddNamedChunk{color=gray, fill=blue}{66.6}{\textcolor{white}{C1}}
   \tracedrawAddChunk[color=gray, fill=red](33.4)
 
   \tracedrawNewLine
 
-  \tracedrawAddChunk[color=gray, fill=blue](46)
+  \tracedrawAddNamedChunk{color=gray, fill=blue}{46}{\textcolor{white}{C2}}
   \tracedrawAddChunk[color=gray, fill=red](54)
 
   \tracedrawNewLine
 
-  \tracedrawAddChunk[color=gray, fill=blue](36)
+  \tracedrawAddNamedChunk{color=gray, fill=blue}{36}{\textcolor{white}{C3}}
   \tracedrawAddChunk[color=gray, fill=red](64)
 
   \tracedrawNewLine
 
-  \tracedrawAddChunk[color=gray, fill=blue](26)
+  \tracedrawAddNamedChunk{color=gray, fill=blue}{26}{\textcolor{white}{C4}}
   \tracedrawAddChunk[color=gray, fill=red](74)
 
 \end{tracedraw}
